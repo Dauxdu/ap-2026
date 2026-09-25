@@ -4,25 +4,20 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE_URL = "https://books.toscrape.com/"
-USER_AGENT = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-}
-TIMEOUT = 10
-
 
 session = requests.Session()
-session.headers.update(USER_AGENT)
+session.headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 
 
-def fetch(url: str, timeout: int = TIMEOUT) -> requests.Response:
+def fetch(url: str) -> requests.Response:
     """
     Выполняет GET-запрос и проверяет статус ответа.
 
     :param url: адрес для запроса
-    :param timeout: время ожидания ответа в секундах, по умолчанию 10
-    :return: объект ответа сервера
+    :return: ответ сервера
+    :raises requests.RequestException: при ошибке сети или статусе 4xx/5xx
     """
-    response = session.get(url, timeout=timeout)
+    response = session.get(url, timeout=30)
     response.raise_for_status()
     return response
 
@@ -55,21 +50,17 @@ def get_cover_urls(genre_url: str, count: int) -> list[str]:
 
     :param genre_url: адрес первой страницы жанра
     :param count: сколько обложек нужно
-    :return: список не более чем из `count` полных адресов обложек
+    :return: не более count адресов обложек
     """
     cover_urls = []
     page_url = genre_url
-
     while page_url and len(cover_urls) < count:
         soup = get_soup(page_url)
-        needed = count - len(cover_urls)
-        images = soup.select("article.product_pod img")[:needed]
-        cover_urls.extend(urljoin(page_url, img["src"]) for img in images)
-
+        for image in soup.select("article.product_pod img"):
+            cover_urls.append(urljoin(page_url, image["src"]))
         next_link = soup.select_one("li.next a")
         page_url = urljoin(page_url, next_link["href"]) if next_link else None
-
-    return cover_urls
+    return cover_urls[:count]
 
 
 def download_file(url: str, file_path: str) -> None:
