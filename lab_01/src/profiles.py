@@ -14,26 +14,25 @@ FIELD_PATTERNS = {
     ),
     "Город": r"(?:г\. )?[А-Я].*",
 }
-
+MIN_YEAR = 1900
 MALE_PATTERN = re.compile(r"^Пол: (?:[Мм]ужской|[Мм])$", re.MULTILINE)
 
 
-def parse_profiles(text: str) -> list[str]:
+def parse_profiles(text: str, splitter: str) -> list[str]:
     """
-    Разбить текст файла на отдельные анкеты.
-
-    Анкеты в файле отделены друг от друга пустой строкой.
+    Разбивает текст файла на отдельные анкеты
 
     :param text: содержимое файла с анкетами
+    :param splitter: строковый разделитель анкет
     :return: список анкет
     """
-    blocks = text.split("\n\n")
+    blocks = text.split(splitter)
     return [block.strip() for block in blocks if block.strip()]
 
 
 def find_field(profile: str, label: str) -> re.Match | None:
     """
-    Найти в анкете поле с указанным названием.
+    Ищет в анкете поле с указанным названием
 
     :param profile: текст анкеты
     :param label: название поля
@@ -43,11 +42,12 @@ def find_field(profile: str, label: str) -> re.Match | None:
     return re.search(pattern, profile, re.MULTILINE)
 
 
-def is_valid_date(profile: str) -> bool:
+def is_valid_date(profile: str, min_year: int) -> bool:
     """
-    Проверить, что дата рождения корректна, год находится в диапазоне от 1900 до текущего.
+    Проверяет, что дата рождения корректна
 
     :param profile: текст анкеты
+    :param min_year: минимальный год сравнения
     :return: True, если дата рождения корректна
     """
     match = find_field(profile, "Дата рождения")
@@ -60,26 +60,26 @@ def is_valid_date(profile: str) -> bool:
             int(match["month"]),
             int(match["day"]),
         )
-        return 1900 <= parsed_date.year <= date.today().year
+        return min_year <= parsed_date.year <= date.today().year
     except (ValueError, IndexError):
         return False
 
 
 def is_valid(profile: str) -> bool:
     """
-    Проверить, что все поля анкеты заполнены в корректном формате.
+    Проверяет, что все поля анкеты заполнены в корректном формате
 
     :param profile: текст анкеты
     :return: True, если анкета корректна
     """
     return all(
         find_field(profile, label) for label in FIELD_PATTERNS
-    ) and is_valid_date(profile)
+    ) and is_valid_date(profile, MIN_YEAR)
 
 
 def is_male(profile: str) -> bool:
     """
-    Проверить, что анкета принадлежит мужчине.
+    Проверяет, что анкета принадлежит мужчине
 
     :param profile: текст анкеты
     :return: True, если поле "Пол" имеет мужское значение

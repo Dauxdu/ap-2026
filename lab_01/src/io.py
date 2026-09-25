@@ -1,6 +1,6 @@
 def read_file(file_path: str) -> str:
     """
-    Прочитать содержимое текстового файла.
+    Считывает содержимое текстового файла
 
     :param file_path: путь к файлу
     :return: содержимое файла
@@ -11,7 +11,7 @@ def read_file(file_path: str) -> str:
 
 def write_file(file_path: str, text: str) -> None:
     """
-    Записать текст в файл.
+    Записывает текст в файл
 
     :param file_path: путь к файлу
     :param text: текст для записи
