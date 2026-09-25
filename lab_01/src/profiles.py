@@ -54,20 +54,14 @@ def is_valid_date(profile: str) -> bool:
     if not match:
         return False
 
-    date_string = match["value"]
-
-    date_match = re.match(FIELD_PATTERNS["Дата рождения"], date_string)
-    if not date_match:
-        return False
-
     try:
         parsed_date = date(
-            int(date_match["year"]),
-            int(date_match["month"]),
-            int(date_match["day"]),
+            int(match["year"]),
+            int(match["month"]),
+            int(match["day"]),
         )
         return 1900 <= parsed_date.year <= date.today().year
-    except ValueError:
+    except (ValueError, IndexError):
         return False
 
 
