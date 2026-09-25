@@ -13,11 +13,7 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Подсчёт анкет мужчин.")
     parser.add_argument("input", type=str, help="файл с анкетами")
     parser.add_argument(
-        "-o",
-        "--output",
-        type=str,
-        default="output.txt",
-        help="файл для результата"
+        "-o", "--output", type=str, default="output.txt", help="файл для результата"
     )
     return parser.parse_args()
 
