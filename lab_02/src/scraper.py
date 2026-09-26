@@ -44,23 +44,34 @@ def get_genres() -> dict[str, str]:
     }
 
 
-def get_cover_urls(genre_url: str, count: int) -> list[str]:
+def get_book_urls(genre_url: str, count: int) -> list[str]:
     """
-    Собирает адреса обложек книг жанра, переходя по страницам.
+    Собирает адреса страниц книг жанра, переходя по страницам списка.
 
     :param genre_url: адрес первой страницы жанра
-    :param count: сколько обложек нужно
-    :return: не более count адресов обложек
+    :param count: сколько книг нужно
+    :return: не более count адресов страниц книг
     """
-    cover_urls = []
+    book_urls = []
     page_url = genre_url
-    while page_url and len(cover_urls) < count:
+    while page_url and len(book_urls) < count:
         soup = get_soup(page_url)
-        for image in soup.select("article.product_pod img"):
-            cover_urls.append(urljoin(page_url, image["src"]))
+        for link in soup.select("article.product_pod h3 a"):
+            book_urls.append(urljoin(page_url, link["href"]))
         next_link = soup.select_one("li.next a")
         page_url = urljoin(page_url, next_link["href"]) if next_link else None
-    return cover_urls[:count]
+    return book_urls[:count]
+
+
+def get_cover_url(book_url: str) -> str:
+    """
+    Получает адрес полноразмерной обложки со страницы книги.
+
+    :param book_url: адрес страницы книги
+    :return: адрес обложки
+    """
+    image = get_soup(book_url).select_one("#product_gallery img")
+    return urljoin(book_url, image["src"])
 
 
 def download_file(url: str, file_path: str) -> None:

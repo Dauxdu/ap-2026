@@ -5,7 +5,7 @@ import requests
 
 from src.annotation import write_annotation
 from src.path_iterator import PathIterator
-from src.scraper import download_file, get_cover_urls, get_genres
+from src.scraper import download_file, get_book_urls, get_cover_url, get_genres
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -37,12 +37,12 @@ def download_covers(output_dir: str, count: int) -> list[str]:
         genre_dir = os.path.join(output_dir, genre.replace(" ", "_"))
         os.makedirs(genre_dir, exist_ok=True)
 
-        cover_urls = get_cover_urls(genre_url, count)
-        for number, url in enumerate(cover_urls, start=1):
+        book_urls = get_book_urls(genre_url, count)
+        for number, book_url in enumerate(book_urls, start=1):
             path = os.path.join(genre_dir, f"{number:04d}.jpg")
-            download_file(url, path)
+            download_file(get_cover_url(book_url), path)
             paths.append(path)
-        print(f"{genre}: {len(cover_urls)} из {count}")
+        print(f"{genre}: {len(book_urls)} из {count}")
     return paths
 
 
