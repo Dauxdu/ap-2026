@@ -70,5 +70,6 @@ def download_file(url: str, file_path: str) -> None:
     :param url: адрес файла
     :param file_path: путь для сохранения
     """
+    content = fetch(url).content
     with open(file_path, "wb") as file:
-        file.write(fetch(url).content)
+        file.write(content)
