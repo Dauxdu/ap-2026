@@ -5,21 +5,18 @@ import pandas as pd
 
 class PathIterator:
     """
-    Итератор по абсолютным путям к файлам.
-
-    Источник - csv-файл аннотации или папка с файлами
+    Итератор по абсолютным путям к файлам из csv-аннотации.
     """
 
     def __init__(self, source: str) -> None:
         """
-        :param source: путь к csv-файлу аннотации или к папке
-        :raises FileNotFoundError: если источник не существует
+        :param source: путь к csv-файлу аннотации
+        :raises FileNotFoundError: если файл аннотации не существует
         """
+        if not os.path.isfile(source):
+            raise FileNotFoundError(f"Файл аннотации не найден: {source}")
         self.index = 0
-        if os.path.isfile(source):
-            self.paths = self.read_annotation(source)
-        else:
-            raise FileNotFoundError(f"Источник не найден: {source}")
+        self.paths = self.read_annotation(source)
 
     @staticmethod
     def read_annotation(annotation_file: str) -> list[str]:
