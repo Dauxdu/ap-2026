@@ -4,7 +4,7 @@ init:
 	pip install --upgrade pip && pip install -r requirements.txt
 
 lab_01:
-	python3 lab_01/main.py lab_01/data/input.txt -o lab_01/data/output.txt
+	python3 lab/lab_01/main.py lab/lab_01/data/input.txt -o lab/lab_01/data/output.txt
 
 lab_02:
-	python3 lab_02/main.py 3 lab_02/data lab_02/data/annotation.csv
+	python3 lab/lab_02/main.py 3 lab/lab_02/data lab/lab_02/data/annotation.csv

@@ -1,7 +1,7 @@
 import argparse
 
-from src.io import read_file, write_file
-from src.profiles import parse_profiles, is_valid, is_male
+from lab.lab_01.src.io import read_file, write_file
+from lab.lab_01.src.profiles import parse_profiles, is_valid, is_male
 
 
 def parse_arguments() -> argparse.Namespace:
