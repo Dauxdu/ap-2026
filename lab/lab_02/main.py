@@ -3,9 +3,9 @@ import argparse
 
 import requests
 
-from lab.lab_02.src.annotation import write_annotation
-from lab.lab_02.src.path_iterator import PathIterator
-from lab.lab_02.src.scraper import download_file, get_book_urls, get_cover_url, get_genres
+from src.annotation import write_annotation
+from src.path_iterator import PathIterator
+from src.scraper import get_genres, get_book_urls, get_cover_url, download_file
 
 
 def parse_arguments() -> argparse.Namespace:

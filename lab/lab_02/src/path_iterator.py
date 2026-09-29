@@ -18,16 +18,6 @@ class PathIterator:
         self.index = 0
         self.paths = self.read_annotation(source)
 
-    @staticmethod
-    def read_annotation(annotation_file: str) -> list[str]:
-        """
-        Прочитать абсолютные пути из csv-аннотации.
-
-        :param annotation_file: путь к csv-файлу аннотации
-        :return: список абсолютных путей
-        """
-        return pd.read_csv(annotation_file)["absolute_path"].tolist()
-
     def __iter__(self) -> "PathIterator":
         """Вернуть сам итератор."""
         return self
@@ -44,3 +34,12 @@ class PathIterator:
         path = self.paths[self.index]
         self.index += 1
         return path
+
+    def read_annotation(annotation_file: str) -> list[str]:
+        """
+        Прочитать абсолютные пути из csv-аннотации.
+
+        :param annotation_file: путь к csv-файлу аннотации
+        :return: список абсолютных путей
+        """
+        return pd.read_csv(annotation_file)["absolute_path"].tolist()
