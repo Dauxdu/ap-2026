@@ -1,4 +1,5 @@
 import argparse
+import cv2
 
 from src.io import read_image, write_image
 from src.plot import show_images
@@ -56,17 +57,16 @@ def main() -> None:
         rotated = rotate(cropped, args.angle)
         result = overlay(rotated, overlay_image, args.alpha)
 
+        images_to_plot = {
+            "Исходное": cv2.cvtColor(image, cv2.COLOR_BGR2RGB),
+            "Обрезка": cv2.cvtColor(cropped, cv2.COLOR_BGR2RGB),
+            "Поворот": cv2.cvtColor(rotated, cv2.COLOR_BGR2RGB),
+            "Наложение": cv2.cvtColor(result, cv2.COLOR_BGR2RGB),
+        }
+        show_images(images_to_plot)
+
         write_image(args.output, result)
         print(f"Результат сохранён: {args.output}")
-
-        images_to_plot = {
-            "Исходное": image,
-            "Обрезка": cropped,
-            "Поворот": rotated,
-            "Наложение": result,
-        }
-
-        show_images(images_to_plot)
 
     except ValueError as exc:
         print(f"Ошибка: {exc}")

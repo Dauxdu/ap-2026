@@ -10,7 +10,7 @@ def read_image(path: str) -> np.ndarray:
     :return: изображение
     :raises FileNotFoundError: если файл не удалось прочитать
     """
-    image = cv2.imread(path, cv2.IMREAD_COLOR_RGB)
+    image = cv2.imread(path)
     if image is None:
         raise FileNotFoundError(f"не удалось прочитать изображение: {path}")
     return image
