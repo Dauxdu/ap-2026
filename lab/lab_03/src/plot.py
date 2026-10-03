@@ -16,5 +16,5 @@ def show_images(images: dict[str, np.ndarray]) -> None:
         plt.title(f"{title}\n{image.shape[1]}x{image.shape[0]}")
         plt.axis("off")
 
-    plt.savefig("output.png")
+    # plt.savefig("output.png")
     # plt.show()
