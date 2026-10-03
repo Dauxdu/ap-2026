@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def read_image(path: str) -> cv2.MatLike:
+def read_image(path: str) -> np.ndarray:
     """
     Прочитать цветное изображение из файла.
 
@@ -10,13 +10,13 @@ def read_image(path: str) -> cv2.MatLike:
     :return: изображение
     :raises FileNotFoundError: если файл не удалось прочитать
     """
-    image = cv2.imread(path, cv2.IMREAD_COLOR_RGB)
+    image = cv2.imread(path)
     if image is None:
         raise FileNotFoundError(f"не удалось прочитать изображение: {path}")
     return image
 
 
-def write_image(path: str, image: cv2.MatLike) -> None:
+def write_image(path: str, image: np.ndarray) -> None:
     """
     Сохранить изображение в файл. Формат определяется по расширению.
 
