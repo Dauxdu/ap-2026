@@ -7,3 +7,6 @@ beautifulsoup4>=4.15.0
 numpy>=2.5.0
 opencv-python>=5.0.0.0
 matplotlib>=3.11.0
+
+# lab_05
+PyQt6>=6.11.0
