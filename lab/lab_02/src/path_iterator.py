@@ -35,6 +35,7 @@ class PathIterator:
         self.index += 1
         return path
 
+    @staticmethod
     def read_annotation(annotation_file: str) -> list[str]:
         """
         Прочитать абсолютные пути из csv-аннотации.
