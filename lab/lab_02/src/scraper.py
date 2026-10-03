@@ -1,3 +1,4 @@
+import os
 from urllib.parse import urljoin
 
 import requests
@@ -72,6 +73,28 @@ def get_cover_url(book_url: str) -> str:
     """
     image = get_soup(book_url).select_one("#product_gallery img")
     return urljoin(book_url, image["src"])
+
+
+def download_covers(output_dir: str, count: int) -> list[str]:
+    """
+    Скачать обложки каждого жанра в отдельную папку.
+
+    :param output_dir: папка для сохранения
+    :param count: сколько обложек скачать для каждого жанра
+    :return: пути к скачанным файлам
+    """
+    paths = []
+    for genre, genre_url in get_genres().items():
+        genre_dir = os.path.join(output_dir, genre.replace(" ", "_"))
+        os.makedirs(genre_dir, exist_ok=True)
+
+        book_urls = get_book_urls(genre_url, count)
+        for number, book_url in enumerate(book_urls, start=1):
+            path = os.path.join(genre_dir, f"{number:04d}.jpg")
+            download_file(get_cover_url(book_url), path)
+            paths.append(path)
+        print(f"{genre}: {len(book_urls)} из {count}")
+    return paths
 
 
 def download_file(url: str, file_path: str) -> None:

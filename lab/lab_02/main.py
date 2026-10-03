@@ -5,7 +5,13 @@ import requests
 
 from src.annotation import write_annotation
 from src.path_iterator import PathIterator
-from src.scraper import get_genres, get_book_urls, get_cover_url, download_file
+from src.scraper import (
+    get_genres,
+    get_book_urls,
+    get_cover_url,
+    download_covers,
+    download_file,
+)
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -22,28 +28,6 @@ def parse_arguments() -> argparse.Namespace:
     if args.count < 1:
         parser.error("количество книг жанра должно быть не меньше 1")
     return args
-
-
-def download_covers(output_dir: str, count: int) -> list[str]:
-    """
-    Скачать обложки каждого жанра в отдельную папку.
-
-    :param output_dir: папка для сохранения
-    :param count: сколько обложек скачать для каждого жанра
-    :return: пути к скачанным файлам
-    """
-    paths = []
-    for genre, genre_url in get_genres().items():
-        genre_dir = os.path.join(output_dir, genre.replace(" ", "_"))
-        os.makedirs(genre_dir, exist_ok=True)
-
-        book_urls = get_book_urls(genre_url, count)
-        for number, book_url in enumerate(book_urls, start=1):
-            path = os.path.join(genre_dir, f"{number:04d}.jpg")
-            download_file(get_cover_url(book_url), path)
-            paths.append(path)
-        print(f"{genre}: {len(book_urls)} из {count}")
-    return paths
 
 
 def main(count: int, output_dir: str, annotation_file: str) -> None:
