@@ -1,4 +1,4 @@
-.PHONY: init lab_01 lab_02 lab_03
+.PHONY: init lab_01 lab_02 lab_03 lab__04
 
 init:
 	pip install --upgrade pip && pip install -r requirements.txt
@@ -11,3 +11,6 @@ lab_02:
 
 lab_03:
 	python3 lab/lab_03/main.py lab/lab_02/data/Travel/0001.jpg lab/lab_02/data/Classics/0001.jpg lab/lab_03/data/result.jpg --width 200 --height 400 --angle 45
+
+lab_04:
+	python3 lab/lab_04/main.py lab/lab_02/data/annotation.csv lab/lab_04/data/output.csv lab/lab_04/data/output.png --min-height 100 --max-height 300
