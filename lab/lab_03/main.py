@@ -7,7 +7,8 @@ from src.transforms import crop, overlay, rotate
 
 
 def parse_arguments() -> argparse.Namespace:
-    """Разобрать и проверить аргументы командной строки.
+    """
+    Разобрать и проверить аргументы командной строки.
 
     :return: объект с валидированными путями к файлам и параметрами
     """

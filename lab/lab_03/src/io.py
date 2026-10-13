@@ -24,6 +24,5 @@ def write_image(path: str, image: np.ndarray) -> None:
     :param image: изображение
     :raises OSError: если изображение не удалось сохранить
     """
-    # OpenCV при записи ожидает порядок каналов BGR
     if not cv2.imwrite(path, image):
         raise OSError(f"не удалось сохранить изображение: {path}")

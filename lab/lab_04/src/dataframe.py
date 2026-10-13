@@ -46,7 +46,7 @@ def sort_by_height(df: pd.DataFrame, ascending: bool = True) -> pd.DataFrame:
     :param ascending: True - по возрастанию, False - по убыванию
     :return: отсортированная таблица
     """
-    return df.sort_values("height", ascending=ascending)
+    return df.copy().sort_values("height", ascending=ascending)
 
 
 def filter_by_height(
