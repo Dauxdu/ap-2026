@@ -1,4 +1,4 @@
-.PHONY: init lab_01 lab_02 lab_03 lab__04
+.PHONY: init lab_01 lab_02 lab_03 lab_04 lab_05
 
 init:
 	pip install --upgrade pip && pip install -r requirements.txt
