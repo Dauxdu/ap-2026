@@ -14,3 +14,6 @@ lab_03:
 
 lab_04:
 	python3 lab/lab_04/main.py lab/lab_02/data/annotation.csv lab/lab_04/data/output.csv lab/lab_04/data/output.png --min-height 100 --max-height 300
+
+lab_05:
+	cd lab && python3 -m lab_05.main
