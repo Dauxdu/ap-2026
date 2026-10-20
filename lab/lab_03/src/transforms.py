@@ -14,10 +14,7 @@ def crop(image: np.ndarray, width: int, height: int) -> np.ndarray:
     """
     image_height, image_width = image.shape[:2]
     if width > image_width or height > image_height:
-        raise ValueError(
-            f"размер обрезки {width}x{height} больше изображения "
-            f"{image_width}x{image_height}"
-        )
+        raise ValueError(f"размер обрезки {width}x{height} больше изображения {image_width}x{image_height}")
     return image[:height, :width]
 
 

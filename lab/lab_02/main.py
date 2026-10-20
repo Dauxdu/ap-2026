@@ -1,17 +1,9 @@
-import os
 import argparse
 
 import requests
-
 from src.annotation import write_annotation
 from src.path_iterator import PathIterator
-from src.scraper import (
-    get_genres,
-    get_book_urls,
-    get_cover_url,
-    download_covers,
-    download_file,
-)
+from src.scraper import download_covers
 
 
 def parse_arguments() -> argparse.Namespace:

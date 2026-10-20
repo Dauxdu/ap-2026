@@ -17,7 +17,5 @@ def write_annotation(paths: list[str], annotation_file: str) -> None:
     absolute_paths = [os.path.abspath(path) for path in paths]
     relative_paths = [os.path.relpath(p, base_dir) for p in absolute_paths]
 
-    annotation = pd.DataFrame(
-        {"absolute_path": absolute_paths, "relative_path": relative_paths}
-    )
+    annotation = pd.DataFrame({"absolute_path": absolute_paths, "relative_path": relative_paths})
     annotation.to_csv(annotation_file, index=False)

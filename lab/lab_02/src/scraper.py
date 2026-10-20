@@ -40,9 +40,7 @@ def get_genres() -> dict[str, str]:
     :return: словарь {название жанра: адрес страницы жанра}
     """
     links = get_soup(BASE_URL).select("div.side_categories ul ul a")
-    return {
-        link.get_text(strip=True): urljoin(BASE_URL, link["href"]) for link in links
-    }
+    return {link.get_text(strip=True): urljoin(BASE_URL, link["href"]) for link in links}
 
 
 def get_book_urls(genre_url: str, count: int) -> list[str]:

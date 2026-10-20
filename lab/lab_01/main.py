@@ -1,7 +1,7 @@
 import argparse
 
 from src.io import read_file, write_file
-from src.profiles import parse_profiles, is_valid, is_male
+from src.profiles import is_male, is_valid, parse_profiles
 
 
 def parse_arguments() -> argparse.Namespace:
@@ -12,9 +12,7 @@ def parse_arguments() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(description="Подсчёт анкет мужчин")
     parser.add_argument("input", type=str, help="файл с анкетами")
-    parser.add_argument(
-        "-o", "--output", type=str, default="output.txt", help="файл для результата"
-    )
+    parser.add_argument("-o", "--output", type=str, default="output.txt", help="файл для результата")
     return parser.parse_args()
 
 

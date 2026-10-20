@@ -19,12 +19,8 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("annotation", type=str, help="csv-аннотация")
     parser.add_argument("output_csv", type=str, help="файл для таблицы")
     parser.add_argument("output_plot", type=str, help="файл для графика")
-    parser.add_argument(
-        "--min-height", type=int, required=True, help="минимальная длина"
-    )
-    parser.add_argument(
-        "--max-height", type=int, required=True, help="максимальная длина"
-    )
+    parser.add_argument("--min-height", type=int, required=True, help="минимальная длина")
+    parser.add_argument("--max-height", type=int, required=True, help="максимальная длина")
     args = parser.parse_args()
 
     if args.min_height < 0 or args.min_height > args.max_height:

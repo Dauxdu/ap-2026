@@ -5,9 +5,7 @@ FIELD_PATTERNS = {
     "Фамилия": r"[А-Я].*",
     "Имя": r"[А-Я].*",
     "Пол": r"[Мм]ужской|[Жж]енский|[МмЖж]",
-    "Дата рождения": (
-        r"(?P<day>\d{1,2})(?P<sep>[./-])(?P<month>\d{1,2})(?P=sep)(?P<year>\d{4})"
-    ),
+    "Дата рождения": (r"(?P<day>\d{1,2})(?P<sep>[./-])(?P<month>\d{1,2})(?P=sep)(?P<year>\d{4})"),
     "Номер телефона или email": (
         r"(?:\+7|8)(?:\d{10}| (?:\(\d{3}\)|\d{3}) \d{3}[ -]\d{2}[ -]\d{2})"
         r"|[A-Za-z0-9._%+-]{1,64}@(?:gmail\.com|mail\.ru|yandex\.ru)"
@@ -72,9 +70,7 @@ def is_valid(profile: str) -> bool:
     :param profile: текст анкеты
     :return: True, если анкета корректна
     """
-    return all(
-        find_field(profile, label) for label in FIELD_PATTERNS
-    ) and is_valid_date(profile, MIN_YEAR)
+    return all(find_field(profile, label) for label in FIELD_PATTERNS) and is_valid_date(profile, MIN_YEAR)
 
 
 def is_male(profile: str) -> bool:

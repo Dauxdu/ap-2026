@@ -9,9 +9,7 @@ def load_annotation(annotation_file: str) -> pd.DataFrame:
     :param annotation_file: путь к csv-файлу аннотации
     :return: таблица с колонками absolute_path и relative_path
     """
-    return pd.read_csv(
-        annotation_file, header=0, names=["absolute_path", "relative_path"]
-    )
+    return pd.read_csv(annotation_file, header=0, names=["absolute_path", "relative_path"])
 
 
 def get_image_height(path: str) -> int:
@@ -49,9 +47,7 @@ def sort_by_height(df: pd.DataFrame, ascending: bool = True) -> pd.DataFrame:
     return df.copy().sort_values("height", ascending=ascending)
 
 
-def filter_by_height(
-    df: pd.DataFrame, min_height: int, max_height: int
-) -> pd.DataFrame:
+def filter_by_height(df: pd.DataFrame, min_height: int, max_height: int) -> pd.DataFrame:
     """
     Оставить изображения с длиной в заданном диапазоне.
 

@@ -1,6 +1,6 @@
 import argparse
-import cv2
 
+import cv2
 from src.io import read_image, write_image
 from src.plot import show_images
 from src.transforms import crop, overlay, rotate
