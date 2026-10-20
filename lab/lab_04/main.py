@@ -28,11 +28,24 @@ def parse_arguments() -> argparse.Namespace:
     return args
 
 
-def main() -> None:
-    args = parse_arguments()
+def main(
+    annotation_path: str,
+    output_csv_path: str,
+    output_plot_path: str,
+    min_height: int,
+    max_height: int,
+) -> None:
+    """
+    Отсортировать изображения по длине, отфильтровать и сохранить таблицу и гистограмму.
 
+    :param annotation_path: путь к csv-аннотации
+    :param output_csv_path: путь для сохранения таблицы
+    :param output_plot_path: путь для сохранения графика
+    :param min_height: минимальная длина изображения
+    :param max_height: максимальная длина изображения
+    """
     try:
-        df = load_annotation(args.annotation)
+        df = load_annotation(annotation_path)
         if df.empty:
             print("В аннотации нет ни одного файла.")
             return
@@ -40,16 +53,16 @@ def main() -> None:
         print(f"Загружено изображений: {len(df)}")
 
         sorted_df = sort_by_height(df)
-        filtered_df = filter_by_height(sorted_df, args.min_height, args.max_height)
-        print(f"Длина от {args.min_height} до {args.max_height}: ")
+        filtered_df = filter_by_height(sorted_df, min_height, max_height)
+        print(f"Длина от {min_height} до {max_height}: ")
         print(f"{len(filtered_df)} изображений")
         print(filtered_df[["relative_path", "height"]].to_string(index=False))
 
-        sorted_df.to_csv(args.output_csv, index=False)
-        print(f"Таблица сохранена: {args.output_csv}")
+        sorted_df.to_csv(output_csv_path, index=False)
+        print(f"Таблица сохранена: {output_csv_path}")
 
-        plot_histogram(sorted_df, args.output_plot)
-        print(f"График сохранён: {args.output_plot}")
+        plot_histogram(sorted_df, output_plot_path)
+        print(f"График сохранён: {output_plot_path}")
 
     except ValueError as exc:
         print(f"Ошибка: {exc}")
@@ -58,4 +71,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    args = parse_arguments()
+    main(
+        annotation_path=args.annotation,
+        output_csv_path=args.output_csv,
+        output_plot_path=args.output_plot,
+        min_height=args.min_height,
+        max_height=args.max_height,
+    )
