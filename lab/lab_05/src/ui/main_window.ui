@@ -75,7 +75,7 @@
        <string>Ctrl+O</string>
       </property>
       <property name="text">
-       <string>Open annotanion...</string>
+       <string>Открыть аннотацию...</string>
       </property>
       <property name="shortcut">
        <string>Ctrl+O</string>
@@ -154,7 +154,7 @@
          <string>Ctrl+0</string>
         </property>
         <property name="text">
-         <string>Fit</string>
+         <string>По размеру окна</string>
         </property>
         <property name="shortcut">
          <string>Ctrl+0</string>
