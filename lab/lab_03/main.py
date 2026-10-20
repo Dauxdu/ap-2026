@@ -40,23 +40,40 @@ def parse_arguments() -> argparse.Namespace:
     return args
 
 
-def main() -> None:
-    args = parse_arguments()
+def main(
+    image_path: str,
+    overlay_path: str,
+    output_path: str,
+    width: int,
+    height: int,
+    angle: float,
+    alpha: float,
+) -> None:
+    """
+    Обрезать, повернуть изображение, наложить на него другое и сохранить результат.
 
+    :param image_path: путь к исходному изображению
+    :param overlay_path: путь к накладываемому изображению
+    :param output_path: путь для сохранения результата
+    :param width: ширина обрезки
+    :param height: высота обрезки
+    :param angle: угол поворота в градусах, против часовой стрелки
+    :param alpha: непрозрачность накладываемого изображения, от 0 до 1
+    """
     try:
-        image = read_image(args.image)
-        overlay_image = read_image(args.overlay)
-        height, width, channels = image.shape
+        image = read_image(image_path)
+        overlay_image = read_image(overlay_path)
+        image_height, image_width, channels = image.shape
         ov_height, ov_width, ov_channels = overlay_image.shape
 
-        print(f"Исходное изображение: {args.image}")
-        print(f"Размер изображения: {width}x{height}, каналов: {channels}")
-        print(f"Накладываемое изображение: {args.overlay}")
+        print(f"Исходное изображение: {image_path}")
+        print(f"Размер изображения: {image_width}x{image_height}, каналов: {channels}")
+        print(f"Накладываемое изображение: {overlay_path}")
         print(f"Размер наложения: {ov_width}x{ov_height}, каналов: {ov_channels}")
 
-        cropped = crop(image, args.width, args.height)
-        rotated = rotate(cropped, args.angle)
-        result = overlay(rotated, overlay_image, args.alpha)
+        cropped = crop(image, width, height)
+        rotated = rotate(cropped, angle)
+        result = overlay(rotated, overlay_image, alpha)
 
         images_to_plot = {
             "Исходное": cv2.cvtColor(image, cv2.COLOR_BGR2RGB),
@@ -66,8 +83,8 @@ def main() -> None:
         }
         show_images(images_to_plot)
 
-        write_image(args.output, result)
-        print(f"Результат сохранён: {args.output}")
+        write_image(output_path, result)
+        print(f"Результат сохранён: {output_path}")
 
     except ValueError as exc:
         print(f"Ошибка: {exc}")
@@ -76,4 +93,13 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    args = parse_arguments()
+    main(
+        image_path=args.image,
+        overlay_path=args.overlay,
+        output_path=args.output,
+        width=args.width,
+        height=args.height,
+        angle=args.angle,
+        alpha=args.alpha,
+    )
