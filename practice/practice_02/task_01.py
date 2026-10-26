@@ -8,7 +8,7 @@ class Rectangle:
 
     def __str__(self) -> str:
         """Return a human-readable representation of the rectangle."""
-        return f"Квадрат: длина = {self.__length}, ширина = {self.__width})"
+        return f"{self.__length} x {self.__width})"
 
     @property
     def length(self) -> int | float:
