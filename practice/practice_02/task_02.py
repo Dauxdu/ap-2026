@@ -78,16 +78,6 @@ class Square(Rectangle):
     def side(self, value: int | float) -> None:
         self._length = self._width = self._check_positive(value, "Side")
 
-    @Rectangle.length.setter
-    def length(self, value: int | float) -> None:
-        """Override rectangle length setter."""
-        self.side = value
-
-    @Rectangle.width.setter
-    def width(self, value: int | float) -> None:
-        """Override rectangle width setter."""
-        self.side = value
-
 
 class Circle(Shape):
     """A circle defined by its radius."""
