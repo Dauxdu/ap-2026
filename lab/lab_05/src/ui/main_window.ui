@@ -146,7 +146,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="fit_button">
+       <widget class="QPushButton" name="zoom_reset_button">
         <property name="focusPolicy">
          <enum>Qt::FocusPolicy::NoFocus</enum>
         </property>
@@ -154,7 +154,7 @@
          <string>Ctrl+0</string>
         </property>
         <property name="text">
-         <string>По размеру окна</string>
+         <string>Сброс</string>
         </property>
         <property name="shortcut">
          <string>Ctrl+0</string>
