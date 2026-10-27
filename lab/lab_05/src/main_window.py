@@ -32,8 +32,6 @@ class MainWindow(QMainWindow):
         self.zoom_reset_button.clicked.connect(self.zoom_reset)
         self.zoom_in_button.clicked.connect(self.zoom_in)
 
-        self.update_controls()
-
     def open_annotation(self) -> None:
         """Выбрать файл аннотации и показать первое изображение."""
         path, _ = QFileDialog.getOpenFileName(self, "Файл аннотации", "", "CSV (*.csv)")
@@ -57,14 +55,11 @@ class MainWindow(QMainWindow):
     def update_controls(self) -> None:
         """Обновить доступность кнопок и подпись под изображением."""
         has_image = not self.pixmap.isNull()
-        self.zoom_out_button.setEnabled(has_image)
+        self.zoom_out_button.setEnabled(has_image and self.zoom > MIN_ZOOM)
         self.zoom_reset_button.setEnabled(has_image)
-        self.zoom_in_button.setEnabled(has_image)
+        self.zoom_in_button.setEnabled(has_image and self.zoom < MAX_ZOOM)
 
         if self.iterator is None:
-            self.previous_button.setEnabled(False)
-            self.next_button.setEnabled(False)
-            self.info_label.setText("")
             return
 
         self.previous_button.setEnabled(self.iterator.has_previous())
