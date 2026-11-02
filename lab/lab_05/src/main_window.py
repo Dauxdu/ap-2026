@@ -19,6 +19,8 @@ class MainWindow(QMainWindow):
     def __init__(self) -> None:
         """Создать окно и его элементы."""
         super().__init__()
+        if not os.path.isfile(UI_PATH):
+            raise FileNotFoundError(f"UI-файл не найден: {UI_PATH}")
         uic.loadUi(UI_PATH, self)
         self.iterator: PathIterator | None = None
         self.annotation_dir = ""
@@ -60,6 +62,9 @@ class MainWindow(QMainWindow):
         self.zoom_in_button.setEnabled(has_image and self.zoom < MAX_ZOOM)
 
         if self.iterator is None:
+            self.info_label.setText("")
+            self.previous_button.setEnabled(False)
+            self.next_button.setEnabled(False)
             return
 
         self.previous_button.setEnabled(self.iterator.has_previous())

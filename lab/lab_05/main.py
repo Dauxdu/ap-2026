@@ -1,7 +1,8 @@
-import sys
+import sys  # noqa: I001
+
+from PyQt6.QtWidgets import QApplication
 
 from lab_05.src.main_window import MainWindow
-from PyQt6.QtWidgets import QApplication
 
 
 def main() -> None:
