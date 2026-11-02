@@ -73,7 +73,7 @@ class MainWindow(QMainWindow):
         name = os.path.relpath(self.iterator.current(), self.annotation_dir)
         text = f"{self.iterator.index} из {len(self.iterator)}  ·  {name}"
         if has_image:
-            text += f"  ·  {self.pixmap.width()}×{self.pixmap.height()} пикс.  ·  {self.zoom:.0%}"
+            text += f"  ·  {self.pixmap.width()}x{self.pixmap.height()} пикс.  ·  {self.zoom:.0%}"
         self.info_label.setText(text)
 
     def render_image(self) -> None:
